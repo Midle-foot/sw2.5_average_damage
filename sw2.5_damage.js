@@ -5,10 +5,22 @@ window.runSimulation = function () {
   const special = Number(document.getElementById("special").value);
   const ray = Number(document.getElementById("ray").value);
   const trials = Number(document.getElementById("trials").value);
-  const threshold = Number(document.getElementById("threshold").value);  // ★追加
+  const threshold = Number(document.getElementById("threshold").value);
 
   const k_power = {
     0:  [0,0,0,1,2,2,3,3,4,4],
+    1:  [0,0,0,1,2,2,3,3,4,4],
+    2:  [0,0,0,1,2,3,4,4,4,4],
+    3:  [0,0,1,1,2,3,4,4,4,5],
+    4:  [0,0,1,2,2,3,4,4,5,5],
+    5:  [0,1,1,2,2,3,4,5,5,5],
+    6:  [,,,,,,,,,],
+    7:  [,,,,,,,,,],
+    8:  [,,,,,,,,,],
+    9:  [,,,,,,,,,],
+    10: [,,,,,,,,,],
+    11: [,,,,,,,,,],
+    12: [,,,,,,,,,],
     13: [1,2,3,3,4,4,5,6,7,7],
     28: [2,3,4,6,6,8,9,9,10,10],
     43: [4,6,7,8,9,10,11,12,13,14]
@@ -53,7 +65,7 @@ window.runSimulation = function () {
   let valueMax = 0;
   let damageAll = 0;
   let countMax = 0;
-  let overThresholdCount = 0;  // ★しきい値以上カウント
+  let overThresholdCount = 0;
 
   for (let n = 0; n < trials; n++) {
     let count = 0;
@@ -87,19 +99,19 @@ window.runSimulation = function () {
       count++;
     }
 
-    valueOnce += damage;  // 追加ダメージ加算後の最終値で比較
+    valueOnce += damage;
     if (valueOnce >= threshold) {
       overThresholdCount++;
     }
   }
 
   const avgDamage = damageAll / trials + damage;
-  const probability = (overThresholdCount / trials * 100).toFixed(2);  // ★確率計算
+  const probability = (overThresholdCount / trials * 100).toFixed(2);
 
   result += `平均ダメージ = ${avgDamage.toFixed(3)}\n`;
   result += `最大ダメージ = ${valueMax}\n`;
   result += `最大回転数 = ${countMax}\n`;
-  result += `→ ${threshold} 以上の確率 = ${probability} %\n`;  // ★表示
+  result += `→ ${threshold} 以上の確率 = ${probability} %\n`;
 
   document.getElementById("result").textContent = result;
 }
